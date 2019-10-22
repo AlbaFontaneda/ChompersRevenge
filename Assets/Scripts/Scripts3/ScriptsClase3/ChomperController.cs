@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class ChomperController : MonoBehaviour
 {
-    [Range(0,1)]
-    public float animationSpeed;
     public bool run;
     public float speed;
     public float runSpeed;
     public float angle;
     public float rotationTime;
+    public float timeToAccel;
 
-    private Rigidbody rigidbody;
     private ChomperAnimation chomperAnimation;
+    private BoxCollider _boxCollider;
     private bool rotate;
+    private float runTime;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        //El rigidbody se puede utilizar para rigidbody
+        _boxCollider = GetComponent<BoxCollider>();
         chomperAnimation = GetComponent<ChomperAnimation>();
         rotate = false;
     }
@@ -31,14 +32,37 @@ public class ChomperController : MonoBehaviour
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
         if (Random.Range(0f, 1f) >= 0.95f && !rotate)
             StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
-
-        chomperAnimation.Updatefordward(animationSpeed);
+        float velocity = CalculateVelocity(Time.deltaTime);
+        Debug.Log("Velocity " + velocity);
+        chomperAnimation.Updatefordward(velocity / runSpeed);
         //La velocidad depende de si está corriendo o no
-        float s = run ? runSpeed : speed;
         //#TODO: Habra que meter gravedad
-        transform.position +=  transform.forward * s * Time.deltaTime;
-        //#TODO: Habra que comprobar colisiones.
 
+        //#TODO: Habra que comprobar colisiones.
+        if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
+        {
+            transform.position += transform.forward * velocity * Time.deltaTime;
+        }
+
+    }
+
+    private float CalculateVelocity(float time)
+    {
+        if (run)
+        {
+            runTime += time;
+            if (runTime > timeToAccel)
+                runTime = timeToAccel;
+            return Mathf.Lerp(speed, runSpeed, runTime / timeToAccel);
+        }
+        else
+        {
+            runTime -= time;
+            if (runTime < 0)
+                runTime = 0f;
+            return Mathf.Lerp(speed, runSpeed, runTime / timeToAccel);
+
+        }
     }
 
     IEnumerator Rotate(bool inverse)
@@ -53,14 +77,8 @@ public class ChomperController : MonoBehaviour
         {
             time += Time.deltaTime;
             transform.rotation = Quaternion.Slerp(originalRotation, newRotation, time / rotationTime);
-            
             yield return new WaitForEndOfFrame();
         }
         rotate = false;
-    }
-
-    public void PlayStep()
-    {
-
     }
 }
