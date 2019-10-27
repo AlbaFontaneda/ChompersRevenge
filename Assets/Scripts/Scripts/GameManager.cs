@@ -118,7 +118,8 @@ public class GameManager : MonoBehaviour
 		// Si juego legalmente, desactivo las puertas
 		if (!m_Cheater)
 		{
-			ActivateDoor(DoorColor.RED, false);
+            ActivateDoor(DoorColor.GREEN, false);
+            ActivateDoor(DoorColor.RED, false);
 			ActivateDoor(DoorColor.BLUE, false);
 			ActivateDoor(DoorColor.YELLOW, false);
 		}

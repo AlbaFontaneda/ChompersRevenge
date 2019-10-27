@@ -15,9 +15,13 @@ public class CutSceneTravel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Camera.gameObject.SetActive(false);
-        GameObject cameraGo = GameObject.FindGameObjectWithTag("MainCamera");
-        m_MainCamera = cameraGo.GetComponent<Camera>();
+        //Control error UnassignedReference on init
+        if (m_Camera && m_Target)
+        {
+            m_Camera.gameObject.SetActive(false);
+            GameObject cameraGo = GameObject.FindGameObjectWithTag("MainCamera");
+            m_MainCamera = cameraGo.GetComponent<Camera>();
+        }
     }
 
     // Update is called once per frame

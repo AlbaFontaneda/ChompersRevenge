@@ -8,6 +8,8 @@ public class Item : MonoBehaviour
 	/// </summary>
 	public GameManager.DoorColor m_DoorColorToActivate;
 
+    public GameObject m_KeyDisabled;
+
 	/// <summary>
 	/// GameManager presente en la escena. Necesario para activar la puerta que haga falta
 	/// </summary>
@@ -69,6 +71,9 @@ public class Item : MonoBehaviour
                 //Desaparece el ítem de la escena
                 // Pista: Destroy(...);
                 Destroy(this.gameObject);
+                Instantiate(m_KeyDisabled);
+                //m_KeyDisabled.GetComponent<Renderer>().enabled = true;
+                //m_KeyDisabled.SetActive(true);
 
             }
             else

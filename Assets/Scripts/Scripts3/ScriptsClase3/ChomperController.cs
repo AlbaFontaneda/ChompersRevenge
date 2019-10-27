@@ -33,7 +33,7 @@ public class ChomperController : MonoBehaviour
         if (Random.Range(0f, 1f) >= 0.95f && !rotate)
             StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
         float velocity = CalculateVelocity(Time.deltaTime);
-        Debug.Log("Velocity " + velocity);
+        //Debug.Log("Velocity " + velocity);
         chomperAnimation.Updatefordward(velocity / runSpeed);
         //La velocidad depende de si está corriendo o no
         //#TODO: Habra que meter gravedad
