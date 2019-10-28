@@ -126,7 +126,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-297348
+  m_Name: pb_Mesh-185684
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -289,7 +289,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-297346
+  m_Name: pb_Mesh-185682
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -533,5 +533,38 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 544824424}
+    - target: {fileID: 315246579, guid: 665e419daa6195941a9273d430a440f6, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315246582, guid: 665e419daa6195941a9273d430a440f6, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 311
+      objectReference: {fileID: 0}
+    - target: {fileID: 7407310228674092523, guid: 665e419daa6195941a9273d430a440f6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193310869270711936, guid: 665e419daa6195941a9273d430a440f6,
+        type: 3}
+      propertyPath: m_Name
+      value: BlueChestSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193310869270711938, guid: 665e419daa6195941a9273d430a440f6,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.13725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193310869270711938, guid: 665e419daa6195941a9273d430a440f6,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193310869270711938, guid: 665e419daa6195941a9273d430a440f6,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.6627451
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 665e419daa6195941a9273d430a440f6, type: 3}
