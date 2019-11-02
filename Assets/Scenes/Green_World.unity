@@ -126,7 +126,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-185684
+  m_Name: pb_Mesh-38250
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -289,7 +289,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-185682
+  m_Name: pb_Mesh-38248
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -565,6 +565,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.6627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960445, guid: 665e419daa6195941a9273d430a440f6, type: 3}
+      propertyPath: m_MinDistanceToStop
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 665e419daa6195941a9273d430a440f6, type: 3}

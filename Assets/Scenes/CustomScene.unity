@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-84328
+  m_Name: pb_Mesh-31806
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -290,7 +290,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-84320
+  m_Name: pb_Mesh-31800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -459,7 +459,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-84324
+  m_Name: pb_Mesh-31804
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -683,7 +683,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-84316
+  m_Name: pb_Mesh-31796
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -846,7 +846,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-84314
+  m_Name: pb_Mesh-31794
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1347,7 +1347,7 @@ PrefabInstance:
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
       propertyPath: m_Cheater
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
@@ -1389,6 +1389,66 @@ PrefabInstance:
     - target: {fileID: 1324921384, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 88.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024256606648933, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024256606718291, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468501174230047254, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024256840141181, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_DoorColorToActivate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468501174230047255, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.5803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468501174230047255, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.94509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468501174230047255, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 976596269022535983, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 976596269022535980, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e4325cb753f03a0449e4d8ddef5ed644, type: 2}
+    - target: {fileID: 3037279797418579079, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RotationSpeed.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037279797418579079, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RotationSpeed.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037279797418579079, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_RotationSpeed.y
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}
