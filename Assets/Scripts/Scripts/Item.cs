@@ -70,8 +70,9 @@ public class Item : MonoBehaviour
                 // TODO 6 - Autodestruirse
                 //Desaparece el ítem de la escena
                 // Pista: Destroy(...);
+                Vector3 chestPosition = this.gameObject.GetComponent<Transform>().position;
                 Destroy(this.gameObject);
-                Instantiate(m_KeyDisabled);
+                Instantiate(m_KeyDisabled, chestPosition, transform.rotation);
                 //m_KeyDisabled.GetComponent<Renderer>().enabled = true;
                 //m_KeyDisabled.SetActive(true);
 
