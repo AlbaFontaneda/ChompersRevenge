@@ -30,6 +30,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool m_Crouching;
         float m_lastPowerUp;
 
+        Vector3 m_SliceDirection;
+        bool m_IsSlicing;
 
         void Start()
 		{
@@ -47,33 +49,45 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		public void Move(Vector3 move, bool crouch, bool jump)
 		{
 
-			// convert the world relative moveInput vector into a local-relative
-			// turn amount and forward amount required to head in the desired
-			// direction.
-			if (move.magnitude > 1f) move.Normalize();
+            // convert the world relative moveInput vector into a local-relative
+            // turn amount and forward amount required to head in the desired
+            // direction.
+
+            if (move.magnitude > 1f) move.Normalize();
 			move = transform.InverseTransformDirection(move);
 			CheckGroundStatus();
-			move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-			m_TurnAmount = Mathf.Atan2(move.x, move.z);
-			m_ForwardAmount = move.z;
 
-			ApplyExtraTurnRotation();
+            if (m_IsSlicing)
+            {
+                m_Rigidbody.AddForce(Physics.gravity * 10, ForceMode.Acceleration);
+            } else
+            {
+                move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 
-			// control and velocity handling is different when grounded and airborne:
-			if (m_IsGrounded)
-			{
-				HandleGroundedMovement(crouch, jump);
-			}
-			else
-			{
-				HandleAirborneMovement();
-			}
+                //move += m_SliceDirection;
 
-			ScaleCapsuleForCrouching(crouch);
-			PreventStandingInLowHeadroom();
+                m_TurnAmount = Mathf.Atan2(move.x, move.z);
+                m_ForwardAmount = move.z;
 
-			// send input and other state parameters to the animator
-			UpdateAnimator(move);
+                ApplyExtraTurnRotation();
+
+                // control and velocity handling is different when grounded and airborne:
+                if (m_IsGrounded)
+                {
+                    HandleGroundedMovement(crouch, jump);
+                }
+                else
+                {
+                    HandleAirborneMovement();
+                }
+
+                ScaleCapsuleForCrouching(crouch);
+                PreventStandingInLowHeadroom();
+
+                // send input and other state parameters to the animator
+                UpdateAnimator(move);
+            }
+
 		}
 
 
@@ -203,9 +217,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		void CheckGroundStatus()
 		{
 			RaycastHit hitInfo;
+
+
+           
+            m_SliceDirection = Vector3.zero;
+
             #if UNITY_EDITOR
-			// helper to visualise the ground check ray in the scene view
-			Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance));
+            // helper to visualise the ground check ray in the scene view
+            Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance), Color.white, 1.0f);
             #endif
 			// 0.1f is a small offset to start the ray from inside the character
 			// it is also good to note that the transform position in the sample assets is at the base of the character
@@ -214,13 +233,35 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
-			}
+
+                var degrees = Mathf.Rad2Deg * Mathf.Acos(m_GroundNormal.normalized.y);
+                
+
+                if (degrees > 45f)
+                {
+                    
+                    float slidingForce = ((m_GroundNormal.y / 0.7f)) * 100;
+
+                    m_IsSlicing = true;
+                   //Vector3 c = Vector3.Cross(Vector3.up, m_GroundNormal);
+                   //Vector3 u = Vector3.Cross(c, m_GroundNormal);
+                   // m_SliceDirection = u * 4f;
+
+                    //m_Rigidbody.AddForce(Physics.gravity * slidingForce, ForceMode.Acceleration);
+                } else
+                {
+                    m_IsSlicing = false;
+                }
+            }
 			else
 			{
 				m_IsGrounded = false;
 				m_GroundNormal = Vector3.up;
 				m_Animator.applyRootMotion = false;
 			}
+
+            
+
 		}
 
         public void SetJumpHeight(float height)
@@ -230,5 +271,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         }
 
         public void RestoreJumpHeight() { m_JumpPower = m_lastPowerUp; }
+
     }
+
 }

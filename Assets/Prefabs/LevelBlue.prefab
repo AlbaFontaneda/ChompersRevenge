@@ -33,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1915396338888429566}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1490572594
 MeshFilter:
@@ -388,10 +388,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RotateType: 0
   m_RotateX: 0
-  m_RotateY: 0
-  m_RotateZ: 1
+  m_RotateY: 1
+  m_RotateZ: 0
   m_RotationSpeed: {x: 0, y: 60, z: 0}
-  m_TimeStopped: 3
+  m_TimeStopped: 0
 --- !u!1 &758550765808906362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1528,7 @@ Transform:
   - {fileID: 5059394903892569587}
   - {fileID: 327957228016044427}
   m_Father: {fileID: 1915396338888429566}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9011043620673567654
 GameObject:
@@ -1558,9 +1558,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 758550766694684030}
-  - {fileID: 1434058404146153912}
   - {fileID: 169107068708106090}
   - {fileID: 1490572589}
+  - {fileID: 1434058404146153912}
   - {fileID: 1826560321068080168}
   - {fileID: 3683011157153939417}
   - {fileID: 2667850437366643709}
@@ -1600,7 +1600,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1915396338888429566}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8612828473309319538
 MeshFilter:
@@ -2071,11 +2071,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1915396338888429566}
     m_Modifications:
-    - target: {fileID: 1242128796025456139, guid: 98564676d57b87d40af0d733b315270b,
-        type: 3}
-      propertyPath: m_Name
-      value: CameraTrigger
-      objectReference: {fileID: 0}
     - target: {fileID: 1242128796025456138, guid: 98564676d57b87d40af0d733b315270b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2135,6 +2130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5184
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242128796025456139, guid: 98564676d57b87d40af0d733b315270b,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 1242128795786508359, guid: 98564676d57b87d40af0d733b315270b,
         type: 3}
