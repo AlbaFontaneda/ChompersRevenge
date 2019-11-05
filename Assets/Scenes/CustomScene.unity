@@ -1347,7 +1347,7 @@ PrefabInstance:
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
       propertyPath: m_Cheater
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
@@ -1469,6 +1469,20 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024256840141173, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: _IsAttachable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858303976, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024256906188033, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 311
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}

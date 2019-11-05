@@ -71,12 +71,24 @@ public class RotatingPlatform : MonoBehaviour {
 	/// Variable interna que controla el estado parado/en movimiento de la entidad PERIODIC
 	/// </summary>
 	private bool m_Stop = false;
-	
-	/// <summary>
-	/// En el update tenemos que girar el GameObject. 
-	/// Será necesario hacer distinción de tipos
-	/// </summary> Update is called once per frame
-	void Update ()
+
+    //private StickyFloor stickyFloor;
+    private GameObject m_Player;
+    public bool isTriggered;
+
+    private void Start()
+    {
+        //stickyFloor = GetComponent<StickyFloor>();
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+
+
+    /// <summary>
+    /// En el update tenemos que girar el GameObject. 
+    /// Será necesario hacer distinción de tipos
+    /// </summary> Update is called once per frame
+    void Update ()
 	{
         // TODO 1 - En función del tipo de rotación, llamar a JustRotate() o a RotateAndStop()
         // Pista: switch (m_RotateType) {...}
@@ -108,6 +120,7 @@ public class RotatingPlatform : MonoBehaviour {
 				m_CurrentYRotation = 0.0f;
 				m_CurrentZRotation = 0.0f;
 			}
+
 		}
 		else
 		{
@@ -158,21 +171,49 @@ public class RotatingPlatform : MonoBehaviour {
 			gameObject.transform.Rotate(0, 0, rotZ);
 			m_CurrentZRotation +=rotZ;
 		}
-	}
-	
-	/// <summary>
-	/// Función helper para obtener qué rotación hay que aplicar a un objeto
-	/// </summary>
-	/// <param name="rotationSpeed">
-	/// Velocidad de rotación en un eje determinado <see cref="System.Single"/>
-	/// </param>
-	/// <param name="currentRotation">
-	/// Rotación actual en el eje -para los movimientos periódicos- <see cref="System.Single"/>
-	/// </param>
-	/// <returns>
-	/// Rotación que hay que aplicar al objeto <see cref="System.Single"/>
-	/// </returns>
-	float _GetRotationAmount(float rotationSpeed, float currentRotation)
+
+    }
+       
+    private void DesAttachedPlayer()
+    {
+        Attachable atachable = m_Player.GetComponent<Attachable>();
+        Collider collider = m_Player.GetComponent<Collider>();
+        StickyFloor sticky = this.GetComponent<StickyFloor>();
+        sticky.DesAttached(atachable, collider);
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player") 
+               isTriggered = true;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+            isTriggered = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isTriggered = false;
+    }
+
+
+    /// <summary>
+    /// Función helper para obtener qué rotación hay que aplicar a un objeto
+    /// </summary>
+    /// <param name="rotationSpeed">
+    /// Velocidad de rotación en un eje determinado <see cref="System.Single"/>
+    /// </param>
+    /// <param name="currentRotation">
+    /// Rotación actual en el eje -para los movimientos periódicos- <see cref="System.Single"/>
+    /// </param>
+    /// <returns>
+    /// Rotación que hay que aplicar al objeto <see cref="System.Single"/>
+    /// </returns>
+    float _GetRotationAmount(float rotationSpeed, float currentRotation)
 	{
 		float frameRotation = rotationSpeed * Time.deltaTime;
 		currentRotation += frameRotation;
@@ -185,7 +226,15 @@ public class RotatingPlatform : MonoBehaviour {
 				{
 					frameRotation -= currentRotation - m_LoopLimit;
 				}
-		}
+
+           
+            if (currentRotation > 45f && currentRotation < 135f)
+            {
+                if (isTriggered)
+                    DesAttachedPlayer();
+               
+            }
+        }
 		
 		return frameRotation;
 	}

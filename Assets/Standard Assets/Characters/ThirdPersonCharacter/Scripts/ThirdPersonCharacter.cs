@@ -30,9 +30,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		bool m_Crouching;
         float m_lastPowerUp;
 
-        Vector3 m_SliceDirection;
-        bool m_IsSlicing;
-
         void Start()
 		{
 			m_Animator = GetComponent<Animator>();
@@ -41,7 +38,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_CapsuleHeight = m_Capsule.height;
 			m_CapsuleCenter = m_Capsule.center;
 
-			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
@@ -57,36 +54,28 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			move = transform.InverseTransformDirection(move);
 			CheckGroundStatus();
 
-            if (m_IsSlicing)
+            move = Vector3.ProjectOnPlane(move, m_GroundNormal);
+           
+            m_TurnAmount = Mathf.Atan2(move.x, move.z);
+            m_ForwardAmount = move.z;
+
+            ApplyExtraTurnRotation();
+
+            // control and velocity handling is different when grounded and airborne:
+            if (m_IsGrounded)
             {
-                m_Rigidbody.AddForce(Physics.gravity * 10, ForceMode.Acceleration);
-            } else
-            {
-                move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-
-                //move += m_SliceDirection;
-
-                m_TurnAmount = Mathf.Atan2(move.x, move.z);
-                m_ForwardAmount = move.z;
-
-                ApplyExtraTurnRotation();
-
-                // control and velocity handling is different when grounded and airborne:
-                if (m_IsGrounded)
-                {
-                    HandleGroundedMovement(crouch, jump);
-                }
-                else
-                {
-                    HandleAirborneMovement();
-                }
-
-                ScaleCapsuleForCrouching(crouch);
-                PreventStandingInLowHeadroom();
-
-                // send input and other state parameters to the animator
-                UpdateAnimator(move);
+                HandleGroundedMovement(crouch, jump);
             }
+            else
+            {
+                HandleAirborneMovement();
+            }
+
+            ScaleCapsuleForCrouching(crouch);
+            PreventStandingInLowHeadroom();
+
+            // send input and other state parameters to the animator
+            UpdateAnimator(move);
 
 		}
 
@@ -216,12 +205,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void CheckGroundStatus()
 		{
-			RaycastHit hitInfo;
-
-
-           
-            m_SliceDirection = Vector3.zero;
-
+          
+            RaycastHit hitInfo;
             #if UNITY_EDITOR
             // helper to visualise the ground check ray in the scene view
             Debug.DrawLine(transform.position + (Vector3.up * 0.1f), transform.position + (Vector3.up * 0.1f) + (Vector3.down * m_GroundCheckDistance), Color.white, 1.0f);
@@ -233,25 +218,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = hitInfo.normal;
 				m_IsGrounded = true;
 				m_Animator.applyRootMotion = true;
-
-                var degrees = Mathf.Rad2Deg * Mathf.Acos(m_GroundNormal.normalized.y);
-                
-
-                if (degrees > 45f)
-                {
-                    
-                    float slidingForce = ((m_GroundNormal.y / 0.7f)) * 100;
-
-                    m_IsSlicing = true;
-                   //Vector3 c = Vector3.Cross(Vector3.up, m_GroundNormal);
-                   //Vector3 u = Vector3.Cross(c, m_GroundNormal);
-                   // m_SliceDirection = u * 4f;
-
-                    //m_Rigidbody.AddForce(Physics.gravity * slidingForce, ForceMode.Acceleration);
-                } else
-                {
-                    m_IsSlicing = false;
-                }
             }
 			else
 			{
@@ -259,8 +225,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_GroundNormal = Vector3.up;
 				m_Animator.applyRootMotion = false;
 			}
-
-            
 
 		}
 
