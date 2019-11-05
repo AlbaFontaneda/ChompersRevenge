@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Red_World.unity
     guid: 05d05ad966d58f148840f9c21f51007e
+  - enabled: 1
+    path: Assets/Scenes/Victory_Scene.unity
+    guid: 26a108a0a85a36a4a95dc7215b3e1545
   m_configObjects: {}
