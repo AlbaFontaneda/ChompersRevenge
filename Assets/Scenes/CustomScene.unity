@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13778
+  m_Name: pb_Mesh-104696
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -290,7 +290,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13776
+  m_Name: pb_Mesh-104694
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -453,7 +453,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13782
+  m_Name: pb_Mesh-104700
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -622,7 +622,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13786
+  m_Name: pb_Mesh-104704
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -846,7 +846,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13788
+  m_Name: pb_Mesh-104706
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1150,6 +1150,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Escenario
       objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 4e-45
+      objectReference: {fileID: 0}
     - target: {fileID: 6274797132622434323, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1347,7 +1367,7 @@ PrefabInstance:
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
       propertyPath: m_Cheater
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9193703142221463165, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
@@ -1486,3 +1506,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}
+--- !u!1 &4656024256840141172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1858303975, guid: cf0ea53a923640342ba75f928556ffc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4656024256840141171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4656024256840141173
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656024256840141172}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.033921022, y: 2.945591, z: 0.036195546}
+  m_Center: {x: -0.12942219, y: 14.646555, z: -0.003681639}
