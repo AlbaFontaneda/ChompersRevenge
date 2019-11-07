@@ -118,7 +118,8 @@ public class GameManager : MonoBehaviour
 		// Si juego legalmente, desactivo las puertas
 		if (!m_Cheater)
 		{
-			ActivateDoor(DoorColor.RED, false);
+            ActivateDoor(DoorColor.GREEN, false);
+            ActivateDoor(DoorColor.RED, false);
 			ActivateDoor(DoorColor.BLUE, false);
 			ActivateDoor(DoorColor.YELLOW, false);
 		}
@@ -153,20 +154,23 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void RespawnPlayer()
 	{
-		// Colocamos al player en el punto de spawn actual
+        // Colocamos al player en el punto de spawn actual
+        m_Player.SetActive(false);
 		m_Player.transform.position = m_CurrentSpawnPoint.position;
-	}
+        m_Player.SetActive(true);
 
-	/// <summary>
-	/// Esta función activa/desactiva una puerta con un tipo dado
-	/// </summary>
-	/// <param name="doorColor">
-	/// Color de la puerta que se quiere desactivar <see cref="DoorColor"/>
-	/// </param>
-	/// <param name="value">
-	/// True, activa la puerta, false la desactiva <see cref="System.Boolean"/>
-	/// </param>
-	public void ActivateDoor(DoorColor doorColor, bool value)
+    }
+
+    /// <summary>
+    /// Esta función activa/desactiva una puerta con un tipo dado
+    /// </summary>
+    /// <param name="doorColor">
+    /// Color de la puerta que se quiere desactivar <see cref="DoorColor"/>
+    /// </param>
+    /// <param name="value">
+    /// True, activa la puerta, false la desactiva <see cref="System.Boolean"/>
+    /// </param>
+    public void ActivateDoor(DoorColor doorColor, bool value)
 	{
 		// Si la puerta existe, la intentamos activar
 		if (m_Doors.ContainsKey(doorColor))

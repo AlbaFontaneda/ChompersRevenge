@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Blue_World.unity
     guid: 559580c542993164a9b8964645429103
+  - enabled: 1
+    path: Assets/Scenes/Yellow_World.unity
+    guid: fbb30cc75fc3eb7409dea1270f41a9e7
+  - enabled: 1
+    path: Assets/Scenes/Red_World.unity
+    guid: 05d05ad966d58f148840f9c21f51007e
+  - enabled: 1
+    path: Assets/Scenes/Victory_Scene.unity
+    guid: 26a108a0a85a36a4a95dc7215b3e1545
   m_configObjects: {}
