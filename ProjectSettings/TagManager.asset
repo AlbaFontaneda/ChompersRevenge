@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - GameManager
+  - Chomper
   layers:
   - Default
   - TransparentFX
