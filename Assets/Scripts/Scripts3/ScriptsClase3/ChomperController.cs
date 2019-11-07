@@ -11,7 +11,9 @@ public class ChomperController : MonoBehaviour
     public float rotationTime;
     public float timeToAccel;
 
+    private Rigidbody chomperRigidBody;
     private ChomperAnimation chomperAnimation;
+    private Animator _animator;
     private BoxCollider _boxCollider;
     private bool rotate;
     private float runTime;
@@ -21,22 +23,28 @@ public class ChomperController : MonoBehaviour
     void Start()
     {
         //El rigidbody se puede utilizar para rigidbody
+        chomperRigidBody = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         chomperAnimation = GetComponent<ChomperAnimation>();
+        _animator = GetComponent<Animator>();
         rotate = false;
+
+        chomperRigidBody.isKinematic = false;
+        _animator.applyRootMotion = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
-        if (Random.Range(0f, 1f) >= 0.95f && !rotate)
-            StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
+        //if (Random.Range(0f, 1f) >= 0.95f && !rotate)
+            //StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
         float velocity = CalculateVelocity(Time.deltaTime);
         //Debug.Log("Velocity " + velocity);
         chomperAnimation.Updatefordward(velocity / runSpeed);
         //La velocidad depende de si está corriendo o no
         //#TODO: Habra que meter gravedad
+
 
         //#TODO: Habra que comprobar colisiones.
         if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
@@ -81,4 +89,41 @@ public class ChomperController : MonoBehaviour
         }
         rotate = false;
     }
+
+    private void StartRotate()
+    {
+        StartCoroutine(Rotate(true));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            chomperRigidBody.isKinematic = true;
+            _animator.applyRootMotion = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            chomperRigidBody.isKinematic = true;
+            _animator.applyRootMotion = true;
+        }
+            
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            chomperRigidBody.isKinematic = false;
+            _animator.applyRootMotion = false;
+        }
+            
+            
+    }
+
+
 }
