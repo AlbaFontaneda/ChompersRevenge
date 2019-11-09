@@ -52,26 +52,11 @@ public class ChomperController : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
 
-        if (m_state != TState.DEATH)
-            Common();
-
-        if (m_state == TState.INIT_SEARCH)
-            InitSearchAStart();
-
-        if (m_state == TState.FOLLOW_PATH)
-            FollowPath();
-        else if (m_state == TState.MOVE)
+     
+        if (m_state == TState.MOVE)
         {
-            Look(m_target.transform.position);
+            //Look(m_target.transform.position);
             Move();
-        }
-        else if (m_state == TState.ATTACK)
-            Attack();
-        else
-        {
-            //Muerto...
-            //Debug.Log(name + " DEATH");
-            transform.rotation = m_deathRotationBlock;
         }
 
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
@@ -86,6 +71,14 @@ public class ChomperController : MonoBehaviour
         //{
         //transform.position += transform.forward * velocity * Time.deltaTime;
         //}
+    }
+
+
+    protected void Look(Vector3 newPosition)
+    {
+        m_direction = newPosition;
+        m_direction.y = transform.position.y;
+        this.transform.LookAt(m_direction);
     }
 
     protected void Common()
@@ -125,6 +118,22 @@ public class ChomperController : MonoBehaviour
             if (m_state == TState.MOVE || m_state == TState.ATTACK)
                 m_state = TState.INIT_SEARCH;
         }
+    }
+
+    protected void Move()
+    {
+       
+            float velocity = CalculateVelocity(Time.deltaTime);
+
+                chomperAnimation.Updatefordward(velocity / runSpeed);
+        
+
+        if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
+            {
+            transform.position += transform.forward * velocity * Time.deltaTime;
+        }
+ 
+
     }
 
 
