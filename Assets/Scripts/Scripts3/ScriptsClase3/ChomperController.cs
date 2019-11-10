@@ -24,7 +24,7 @@ public class ChomperController : MonoBehaviour
     private int m_currentWaypoint;
     private float m_distanceToChangeWaypoint = 2.0f;
     private enum TState { MOVE, ATTACK, DEATH, INIT_SEARCH, FOLLOW_PATH };
-    private TState m_state = TState.MOVE;
+    private TState m_state = TState.INIT_SEARCH;
     private Vector3 m_direction = Vector3.zero;
     public float m_stopDistance = 6f;
 
@@ -50,13 +50,17 @@ public class ChomperController : MonoBehaviour
     void Update()
     {
 
-        Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+        //Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
 
-     
-        if (m_state == TState.MOVE)
+        Move();
+      
+        if (m_state == TState.INIT_SEARCH)
         {
-            //Look(m_target.transform.position);
-            Move();
+            Common();
+        }
+        if (m_state == TState.FOLLOW_PATH)
+        {
+            Look(m_target.transform.position);
         }
 
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
@@ -84,52 +88,65 @@ public class ChomperController : MonoBehaviour
     protected void Common()
     {
         RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward * 10f);
+
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+        Debug.DrawRay(transform.position, transform.forward * 10f, Color.green);
+        if (Physics.Raycast(center, transform.forward, out hit, 10))
+        {
+            if (hit.collider.gameObject == m_target)
+            {
+                m_state = TState.FOLLOW_PATH;
+               
+            }
+        }
+        /*
+       
         Vector3 direction = m_target.transform.position - this.transform.position;
 
         Vector3 center = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Debug.DrawRay(center, direction * 5f, Color.green);
+       
         bool targetVisible = false;
-        if (Physics.Raycast(center, direction, out hit))
+        if (Physics.Raycast(transform.position, transform.forward * 5f, out hit))
         {
             //Si te veo
             if (hit.collider.gameObject == m_target)
             {
                 targetVisible = true;
                 m_direction = direction;
+                Look(m_target.transform.position);
                 //Si no te tengo a tiro
-                if (m_direction.sqrMagnitude > m_stopDistance * m_stopDistance)
-                {
-                    m_state = TState.MOVE;
-                }
-                else
-                {
+                //if (m_direction.sqrMagnitude > m_stopDistance * m_stopDistance)
+                //{
+                    //m_state = TState.MOVE;
+                //}
+                //else
+                //{
                     //Si te tengo a tiro...
-                    m_state = TState.ATTACK;
+                    //m_state = TState.ATTACK;
                     //m_attackTime = m_timeBetweenAttack;
                     //if (HasAttackAnim)
                         //m_animationcomponent.IsAttacking = true;
-                }
+                //}
             }
         }
 
         if (!targetVisible)
         {
             //Si estaba buscando directamente y le pierdo de vista, usa A*
-            if (m_state == TState.MOVE || m_state == TState.ATTACK)
-                m_state = TState.INIT_SEARCH;
+            //if (m_state == TState.MOVE || m_state == TState.ATTACK)
+                //m_state = TState.INIT_SEARCH;
         }
+        */
     }
 
     protected void Move()
     {
-       
-            float velocity = CalculateVelocity(Time.deltaTime);
-
-                chomperAnimation.Updatefordward(velocity / runSpeed);
-        
+        float velocity = CalculateVelocity(Time.deltaTime);
+        chomperAnimation.Updatefordward(velocity / runSpeed);    
 
         if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
-            {
+        {
             transform.position += transform.forward * velocity * Time.deltaTime;
         }
  
