@@ -19,40 +19,140 @@ public class ChomperController : MonoBehaviour
     private float runTime;
 
 
+    private GameObject m_target;
+    public List<Vector3> m_waypointList;
+    private int m_currentWaypoint;
+    private float m_distanceToChangeWaypoint = 2.0f;
+    private enum TState { MOVE, ATTACK, DEATH, INIT_SEARCH, FOLLOW_PATH };
+    private TState m_state = TState.INIT_SEARCH;
+    private Vector3 m_direction = Vector3.zero;
+    public float m_stopDistance = 6f;
+
     // Start is called before the first frame update
     void Start()
     {
         //El rigidbody se puede utilizar para rigidbody
         chomperRigidBody = GetComponent<Rigidbody>();
-        _boxCollider = GetComponent<BoxCollider>();
         chomperAnimation = GetComponent<ChomperAnimation>();
+        _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
         rotate = false;
 
         chomperRigidBody.isKinematic = false;
         _animator.applyRootMotion = false;
+
+        m_waypointList = new List<Vector3>();
+        m_target = GameObject.FindGameObjectWithTag("Player") as GameObject;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+
+        Move();
+      
+        if (m_state == TState.INIT_SEARCH)
+        {
+            Common();
+        }
+        if (m_state == TState.FOLLOW_PATH)
+        {
+            Look(m_target.transform.position);
+        }
+
         //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
         //if (Random.Range(0f, 1f) >= 0.95f && !rotate)
-            //StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
-        float velocity = CalculateVelocity(Time.deltaTime);
-        //Debug.Log("Velocity " + velocity);
-        chomperAnimation.Updatefordward(velocity / runSpeed);
-        //La velocidad depende de si está corriendo o no
-        //#TODO: Habra que meter gravedad
+        //StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
+        //float velocity = CalculateVelocity(Time.deltaTime);
 
+        //chomperAnimation.Updatefordward(velocity / runSpeed);
 
         //#TODO: Habra que comprobar colisiones.
+        //if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
+        //{
+        //transform.position += transform.forward * velocity * Time.deltaTime;
+        //}
+    }
+
+
+    protected void Look(Vector3 newPosition)
+    {
+        m_direction = newPosition;
+        m_direction.y = transform.position.y;
+        this.transform.LookAt(m_direction);
+    }
+
+    protected void Common()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, transform.forward * 10f);
+
+        Vector3 center = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+        Debug.DrawRay(transform.position, transform.forward * 10f, Color.green);
+        if (Physics.Raycast(center, transform.forward, out hit, 10))
+        {
+            if (hit.collider.gameObject == m_target)
+            {
+                m_state = TState.FOLLOW_PATH;
+               
+            }
+        }
+        /*
+       
+        Vector3 direction = m_target.transform.position - this.transform.position;
+
+        Vector3 center = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+       
+        bool targetVisible = false;
+        if (Physics.Raycast(transform.position, transform.forward * 5f, out hit))
+        {
+            //Si te veo
+            if (hit.collider.gameObject == m_target)
+            {
+                targetVisible = true;
+                m_direction = direction;
+                Look(m_target.transform.position);
+                //Si no te tengo a tiro
+                //if (m_direction.sqrMagnitude > m_stopDistance * m_stopDistance)
+                //{
+                    //m_state = TState.MOVE;
+                //}
+                //else
+                //{
+                    //Si te tengo a tiro...
+                    //m_state = TState.ATTACK;
+                    //m_attackTime = m_timeBetweenAttack;
+                    //if (HasAttackAnim)
+                        //m_animationcomponent.IsAttacking = true;
+                //}
+            }
+        }
+
+        if (!targetVisible)
+        {
+            //Si estaba buscando directamente y le pierdo de vista, usa A*
+            //if (m_state == TState.MOVE || m_state == TState.ATTACK)
+                //m_state = TState.INIT_SEARCH;
+        }
+        */
+    }
+
+    protected void Move()
+    {
+        float velocity = CalculateVelocity(Time.deltaTime);
+        chomperAnimation.Updatefordward(velocity / runSpeed);    
+
         if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
         {
             transform.position += transform.forward * velocity * Time.deltaTime;
         }
+ 
 
     }
+
 
     private float CalculateVelocity(float time)
     {
