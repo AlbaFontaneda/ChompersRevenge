@@ -1149,11 +1149,25 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818263047}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &1818263049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818263047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5f34a24fe5f8240922911c18331f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Enemy: {fileID: 2108266317}
+  m_Player: {fileID: 1818263048}
 --- !u!1 &1923646901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,8 +1357,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3127346, z: 1.2855325}
-  m_Center: {x: 0, y: 0.39671135, z: -0.002573967}
+  m_Size: {x: 1, y: 1.4323883, z: 1.2855325}
+  m_Center: {x: 0, y: 0.4565382, z: -0.002573967}
 --- !u!114 &2108266319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,6 +1424,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Escenario
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656024257476836329, guid: cf0ea53a923640342ba75f928556ffc2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6274797132622434323, guid: cf0ea53a923640342ba75f928556ffc2,
         type: 3}
@@ -1745,5 +1774,9 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 311
       objectReference: {fileID: 0}
+    - target: {fileID: 1858303977, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}
+      propertyPath: m_Chomper
+      value: 
+      objectReference: {fileID: 2108266317}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0ea53a923640342ba75f928556ffc2, type: 3}

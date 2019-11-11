@@ -49,10 +49,8 @@ public class ChomperController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
-
-        Move();
+        if (m_state != TState.DEATH)
+            Move();
       
         if (m_state == TState.INIT_SEARCH)
         {
@@ -60,21 +58,10 @@ public class ChomperController : MonoBehaviour
         }
         if (m_state == TState.FOLLOW_PATH)
         {
+            run = true;
             Look(m_target.transform.position);
         }
 
-        //CAMBIAMOS DE DIRECCIÓN CON UNA PROBABILIDAD DEL 5%
-        //if (Random.Range(0f, 1f) >= 0.95f && !rotate)
-        //StartCoroutine(Rotate(Random.Range(1, 10) % 2 == 0));
-        //float velocity = CalculateVelocity(Time.deltaTime);
-
-        //chomperAnimation.Updatefordward(velocity / runSpeed);
-
-        //#TODO: Habra que comprobar colisiones.
-        //if (!Physics.BoxCast(transform.position, _boxCollider.size, transform.forward, transform.rotation, 0.1f))
-        //{
-        //transform.position += transform.forward * velocity * Time.deltaTime;
-        //}
     }
 
 
@@ -100,44 +87,7 @@ public class ChomperController : MonoBehaviour
                
             }
         }
-        /*
-       
-        Vector3 direction = m_target.transform.position - this.transform.position;
-
-        Vector3 center = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-       
-        bool targetVisible = false;
-        if (Physics.Raycast(transform.position, transform.forward * 5f, out hit))
-        {
-            //Si te veo
-            if (hit.collider.gameObject == m_target)
-            {
-                targetVisible = true;
-                m_direction = direction;
-                Look(m_target.transform.position);
-                //Si no te tengo a tiro
-                //if (m_direction.sqrMagnitude > m_stopDistance * m_stopDistance)
-                //{
-                    //m_state = TState.MOVE;
-                //}
-                //else
-                //{
-                    //Si te tengo a tiro...
-                    //m_state = TState.ATTACK;
-                    //m_attackTime = m_timeBetweenAttack;
-                    //if (HasAttackAnim)
-                        //m_animationcomponent.IsAttacking = true;
-                //}
-            }
-        }
-
-        if (!targetVisible)
-        {
-            //Si estaba buscando directamente y le pierdo de vista, usa A*
-            //if (m_state == TState.MOVE || m_state == TState.ATTACK)
-                //m_state = TState.INIT_SEARCH;
-        }
-        */
+      
     }
 
     protected void Move()
@@ -149,7 +99,6 @@ public class ChomperController : MonoBehaviour
         {
             transform.position += transform.forward * velocity * Time.deltaTime;
         }
- 
 
     }
 
@@ -189,6 +138,13 @@ public class ChomperController : MonoBehaviour
         }
         rotate = false;
     }
+
+    void Death()
+    {
+        m_state = TState.DEATH;
+        Destroy(this.gameObject);
+    }
+
 
     private void StartRotate()
     {
